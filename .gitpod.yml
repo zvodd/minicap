@@ -4,17 +4,19 @@
 
 tasks:
   - before: |
-      pushd ~
+      pushd /workspace/
       wget "https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip"
       unzip commandlinetools-linux-8512546_latest.zip
       rm commandlinetools-linux-8512546_latest.zip
-      export ANDROID_SDK_ROOT=$HOME/cmdline-tools
-      export PATH="$PATH:$HOME/cmdline-tools/bin"
+      export ANDROID_SDK_ROOT=/workspace/cmdline-tools
+      export PATH="$PATH:$ANDROID_SDK_ROOT/bin"
       popd
-      yes |sdkmanager --sdk_root=$HOME/cmdline-tools "platforms;android-30" "ndk;23.2.8568313"
+      yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "ndk;23.2.8568313"
+      gp sync-done before
   - name: build
+    init: gp sync-await before
     command: |
-          export ANDROID_SDK_ROOT=$HOME/cmdline-tools
-          export PATH="$PATH:$HOME/cmdline-tools/bin"
-          export PATH="$PATH:$HOME/cmdline-tools/ndk/23.2.8568313"
+          export ANDROID_SDK_ROOT=/workspace/cmdline-tools
+          export PATH="$PATH:$ANDROID_SDK_ROOT/bin"
+          export PATH="$PATH:$ANDROID_SDK_ROOT/ndk/23.2.8568313"
           make
