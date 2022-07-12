@@ -3,7 +3,7 @@
 # and commit this file to your remote git repository to share the goodness with others.
 
 tasks:
-  - init: |
+  - before: |
       pushd ~
       wget "https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip"
       unzip commandlinetools-linux-8512546_latest.zip
@@ -11,6 +11,10 @@ tasks:
       export ANDROID_SDK_ROOT=$HOME/cmdline-tools
       export PATH="$PATH:$HOME/cmdline-tools/bin"
       popd
-      yes |sdkmanager --sdk_root=$HOME/cmdline-tools platforms;android-30 platforms;android-25 patcher;v4 ndk;23.2.8568313
-  - name: buildmake
-    command: make
+      yes |sdkmanager --sdk_root=$HOME/cmdline-tools "platforms;android-30" "platforms;android-25" "ndk;23.2.8568313" "tools"
+  - name: build
+    command: |
+          export ANDROID_SDK_ROOT=$HOME/cmdline-tools
+          export PATH="$PATH:$HOME/cmdline-tools/bin"
+          export PATH="$PATH:$HOME/cmdline-tools/ndk/23.2.8568313"
+          make
