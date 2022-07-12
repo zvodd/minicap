@@ -12,3 +12,5 @@ tasks:
       export PATH="$PATH:$HOME/cmdline-tools/bin"
       popd
       yes |sdkmanager --sdk_root=$HOME/cmdline-tools platforms;android-30 platforms;android-25 patcher;v4 ndk;23.2.8568313
+  - name: buildmake
+    command: make
