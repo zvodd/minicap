@@ -11,7 +11,7 @@ tasks:
       export ANDROID_SDK_ROOT=$HOME/cmdline-tools
       export PATH="$PATH:$HOME/cmdline-tools/bin"
       popd
-      yes |sdkmanager --sdk_root=$HOME/cmdline-tools "platforms;android-25" "ndk;23.2.8568313"
+      yes |sdkmanager --sdk_root=$HOME/cmdline-tools "platforms;android-30" "ndk;23.2.8568313"
   - name: build
     command: |
           export ANDROID_SDK_ROOT=$HOME/cmdline-tools
